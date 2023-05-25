@@ -1,0 +1,35 @@
+import numpy as np
+
+class VectorMatrixCache:
+    def __init__(self):
+        self.vector = None
+        self.matrix = None
+
+    def get_matrix(self, vector):
+        if np.array_equal(self.vector, vector):
+            print("Returning cached matrix...")
+            return self.matrix
+
+        print("Calculating new matrix...")
+        self.vector = vector
+        self.matrix = np.outer(vector, vector)
+        return self.matrix
+
+# Create an instance of the cache
+cache = VectorMatrixCache()
+
+# Example usage
+v1 = np.array([1, 2, 3])
+m1 = cache.get_matrix(v1)
+print("Matrix 1:")
+print(m1)
+
+v2 = np.array([4, 5, 6])
+m2 = cache.get_matrix(v2)
+print("Matrix 2:")
+print(m2)
+
+# Reusing the same vector will return the cached matrix
+m1_cached = cache.get_matrix(v1)
+print("Cached Matrix 1:")
+print(m1_cached)
